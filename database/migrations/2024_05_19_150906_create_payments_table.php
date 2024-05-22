@@ -15,14 +15,22 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->integer('firstBatch');
-            $table->integer('SecondBatch');
-            $table->integer('thirdBatch_25');
-            $table->float('cartNumber');
+            $table->integer('terminalRef');
             $table->float('amount');
-            $table->string('batchName');
+            $table->boolean('Status')->default(0);
+            $table->string('currency');
+            $table->string('language');
+            $table->float('amountRef');
+            $table->integer('transactionNo');
+            $table->integer('orderRef');
+            $table->string('message');
+            $table->boolean('is_success');
+            $table->string('token');
+            $table->date('paidDate');
             $table->unsignedBigInteger('subscription_id');
             $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

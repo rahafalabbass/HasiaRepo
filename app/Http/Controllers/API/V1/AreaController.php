@@ -87,6 +87,37 @@ class AreaController extends Controller
         }
 
     }
+
+      //.......................UPDATE AREA............................
+
+      public function updateArea(areaRequest $request, $id) {
+        try {
+            if (Auth::user()->role != 'employee') {
+                return $this->buildResponse(null, 'Warning', 'unauthorized', 401);
+            }
+    
+            $area = Areas::findOrFail($id);
+    
+            $area->name = $request->input('name');
+    
+            if ($request->hasFile('url_image')) {
+                if ($area->url_image) {
+                    Storage::disk('public')->delete('areas/' . $area->url_image);
+                }
+
+                $image = $request->file('url_image')->getClientOriginalName();
+                $request->file('url_image')->storeAs('areas', $image, 'public');
+                $area->url_image = $image;
+            }
+            $area->save();
+    
+            return $this->buildResponse($area, 'Success', 'تم تحديث المنطقة بنجاح', 200);
+    
+        } catch (\Exception $ex) {
+            return $this->buildResponse($ex, 'Error', 'لم يتم تحديث المنطقة بشكل ناجح', 500);
+        }
+    }
+    
     
     //...........Create Earth...............
 
@@ -112,6 +143,7 @@ class AreaController extends Controller
 
     }
 
+  
 //................. UPDATE EARTH.................................
     public function updateEarth(xx $request,$id){
         try{

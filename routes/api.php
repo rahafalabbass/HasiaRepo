@@ -89,6 +89,7 @@ Route::prefix('/status')->middleware('auth:sanctum')->group(function () {
 
 
 Route::post('/addArea',[AreaController::class,'createArea'])->middleware(['auth:sanctum','auth.employee']);
+Route::post('/updateArea/{id}',[AreaController::class,'updateArea'])->middleware(['auth:sanctum','auth.employee']);
 Route::post('/addEarth/{id}',[AreaController::class,'createEarth'])->middleware(['auth:sanctum','auth.employee']);
 Route::patch('/updateEarth/{id}',[AreaController::class,'updateEarth'])->middleware(['auth:sanctum','auth.employee']);
 

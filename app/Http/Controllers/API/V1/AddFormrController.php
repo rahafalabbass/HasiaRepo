@@ -8,7 +8,7 @@ use App\Http\Resources\SsResource;
 use App\Http\Resources\SubsecrebResource;
 use App\Models\images;
 use App\Models\Note;
-use App\Models\Payment;
+use App\Models\PaymentStatus;
 use App\Models\subscriptions;
 use App\Traits\GeneralTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -103,14 +103,11 @@ class AddFormrController extends Controller
                 'description' => $request->input('description') ?? 'تم استقبال طلبك , سيتم تدقيقه ومراجعتك في حال كان هناك أي خطأ',
             ]);
     
-            $payments = Payment::create([
+            $payments = PaymentStatus::create([
                 'subscription_id' => $subscription_id,
                 'firstBatch' => 0,
                 'SecondBatch' => 0,
                 'thirdBatch_25' => 0,
-                'cartNumber' => 0,
-                'amount' => 0,
-                'batchName' => 'batchName',
             ]);
             $data =[$subscription,$notes,$payments];
 
