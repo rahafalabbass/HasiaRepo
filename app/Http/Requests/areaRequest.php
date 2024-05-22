@@ -25,7 +25,7 @@ class areaRequest extends FormRequest
     {
         return [
          "name"=>['required', 'string'],
-         "url_image"=>['required', 'image','mimes:jpeg,png,jpg,gif', 'max:2048']
+         "url_image"=>['image','mimes:jpeg,png,jpg,gif', 'max:2048']
         ];
     }
 }
